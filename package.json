@@ -1,0 +1,51 @@
+{
+  "name": "firemap-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "client": "cd client && npm run start",
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "test-integration": "casperjs test ../test/integration/test.*.js",
+    "test-integration-runner": "NODE_ENV=test node casper-runner.js",
+    "test": "npm run test-integration-runner",
+    "test-unit": "istanbul cover ./node_modules/mocha/bin/_mocha test/unit",
+    "lint": "eslint .",
+    "autofix": "eslint --fix .",
+    "codecov": "npm run test && (codecov || true)"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-eslint": "9.0.0",
+    "body-parser": "^1.18.3",
+    "btoa": "^1.2.1",
+    "casperjs": "^1.1.4",
+    "cfenv": "^1.1.0",
+    "dotenv": "^4.0.0",
+    "eslint": "5.6.0",
+    "eslint-config-google": "^0.12.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "express": "^4.16.3",
+    "formidable": "^1.2.1",
+    "fs": "^0.0.1-security",
+    "istanbul": "^0.4.5",
+    "mapbox-geocoding": "^0.1.5",
+    "mapbox-gl": "^0.51.0",
+    "mocha": "^6.0.1",
+    "nodemon": "^1.18.10",
+    "phantomjs-prebuilt": "^2.1.16",
+    "prettier": "^1.16.4",
+    "request": "^2.88.0",
+    "supertest": "^3.4.2",
+    "watson-developer-cloud": "^3.4.5",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": "> 3.10.x"
+  }
+}

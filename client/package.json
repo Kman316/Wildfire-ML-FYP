@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@commodityvectors/react-mapbox-gl": "^2.0.3",
     "mapbox-gl": "^0.51.0",
     "npm-install-peers": "^1.2.1",
     "react": "^16.5.2",
@@ -12,6 +13,7 @@
     "watson-developer-cloud": "^3.18.1",
     "watson-ml-model-utils": "0.0.3"
   },
+  "proxy": "http://localhost:5000/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -42,12 +42,11 @@ h1 {
 }
 
 .markerred{
- background-image: url('../../fire-red.png');
- background-size: cover;
- width: 50px;
- height: 50px;
+ display: block;
+ border: none;
  border-radius: 50%;
  cursor: pointer;
+ padding: 0;
 }
 
 form,

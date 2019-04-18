@@ -51,41 +51,13 @@
                 const feature = features[0];
 
                 popup.setLngLat(feature.geometry.coordinates)
-                    .setHTML(feature.properties.intensity)
+                    .setHTML("Predicted Wildfire Intensity: " + feature.properties.intensity)
                     .addTo(map);
 
                 map.getCanvas().style.cursor = features.length ? 'pointer' : '';
             });
 
         });
-
-
-
-
-/*
- function setBarWidth(value) {
-   var scale = {
-     min : 225,
-     max : 370
-   }
-   // calculate % along scale, i.e. width of the bar
-     let width = 100 * (value - scale.min) / (scale.max - scale.min);
-     // if width < 0, set to 0
-   width = (width < 0 ? 0 : width);
-   // if width > 100, set to 100
-   width = (width > 100 ? 100 : width);
-   // set the width of the bar
-   document.getElementById('bar-fill').style.width = width + '%';
-
-   // define an array of colors to set the bar to, depending on <width>
-     const colors = ['#aa0202', '#ff5500', '#ffa500', '#ffd800', '#f8e683'];
-     // how big is each color category
-     const binSize = (scale.max - scale.min) / (colors.length + 1);
-     // get the relevant color from the array, based on the width of the bar
-   color = colors[Math.round(width/binSize)];
-   // set the color of the bar
-   document.getElementById('bar-fill').style.backgroundColor = color;
- }
 
  function processOK(response) {
      console.log("response");
@@ -114,4 +86,3 @@
      	error: processNotOK
      });
  }
- */

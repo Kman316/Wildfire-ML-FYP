@@ -123,11 +123,3 @@ const port = process.env.PORT || process.env.VCAP_APP_PORT || 5000;
 application.listen(port, function () {
     console.log("Server running on port: %d", port);
 });
-
-application.get('/express_backend', (req, res) => {
-    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
-
-application.get('/modelintensity', (req, res) => {
-    res.send({ response: parsedGetResponse	});
-});

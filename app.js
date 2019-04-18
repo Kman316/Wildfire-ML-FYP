@@ -27,14 +27,14 @@ const wml_url = process.env.WML_URL;
 const wml_username = process.env.WML_USERNAME;
 const wml_password = process.env.WML_PASSWORD;
 const map_apikey= process.env.MAP_APIKEY;
-let parsedGetResponse;
+
 application.use(bodyParser.urlencoded({ extended: true }));
 
 application.use(express.static(__dirname + "/public"));
 
 application.post('/modelintensity', function(req, res) {
 
-    var payload = '{"fields": ["latitude", "longitude"], "values": [[' + req.body.lat + ',' + req.body.lng + ']]}';
+    const payload = '{"fields": ["latitude", "longitude"], "values": [[' + req.body.lat + ',' + req.body.lng + ']]}';
 
     wml_apiPost(scoring_url, wmlToken, payload, function (resp) {
         let parsedPostResponse;

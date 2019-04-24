@@ -8,6 +8,11 @@ const map = new mapboxgl.Map({
 
 let geolocate;
 
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+}));
+
 map.addControl(geolocate = new mapboxgl.GeolocateControl({
     positionOptions: {
         enableHighAccuracy: true

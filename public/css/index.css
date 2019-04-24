@@ -1,3 +1,26 @@
+.map-overlay {
+ position: absolute;
+ z-index: 2;
+ bottom: 0;
+ right: 0;
+ margin-top: 20%;
+ margin-right: 0.5%;
+ font-family: 'Roboto', sans-serif;
+ overflow: auto;
+ border-radius: 3px;
+ font-size: 100%;
+ color: #FFFFFF;
+ background: #000000;
+ opacity: 0.7;
+}
+
+#features {
+ top: 10%;
+ height: 20%;
+ margin-top: 10px;
+ width: 20%;
+}
+
 body {
  margin: 0;
  font-family: monospace;

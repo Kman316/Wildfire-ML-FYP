@@ -12,6 +12,8 @@
     <title>Predict Wildfire Intensity</title>
 </head>
 <body>
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.css' type='text/css' />
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a href="#" class="navbar-brand">Academind</a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
@@ -28,7 +30,13 @@
 </nav>
 
 <h1>FireMap</h1>
-<div id='map'></div>
+<div id='map'>
+    <div class='map-overlay' id='features'><h2><center>FireMap</center></h2>
+        <b>Features:</b> Clicking the clustered points will zoom the map in on them,
+        but depending on how close they are, you may have to zoom further to see each individual point.
+        Individual points can be clicked on to see the predicted wildfire score.<br>
+    </div>
+</div>
 <script type="text/javascript" src="js/usa.js"></script>
 <div id="help-message">
 

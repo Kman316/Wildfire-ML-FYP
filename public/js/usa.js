@@ -2,11 +2,16 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY2F0aGFsLWtlbm5lYWxseSIsImEiOiJjanJ4bnE5MDgwa
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-8.9226765, 52.1772531],
+    center: [-98.333, 31.20],
     zoom: 4
 });
 
 let geolocate;
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+}));
 
 map.addControl(geolocate = new mapboxgl.GeolocateControl({
     positionOptions: {
@@ -81,7 +86,7 @@ $.getJSON("https://gist.githubusercontent.com/Kman316/65c39034fe09ead04647f7ec05
             });
         });
     });
-    
+
     const popup = new mapboxgl.Popup();
 
     map.on('click', 'unclustered-point' ,function(e){

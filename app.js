@@ -9,6 +9,8 @@ const my_btoa = require("btoa");
 const express = require("express");
 const fs = require("fs");
 const application = express();
+const router = express.Router();
+var path = __dirname + '/public/';
 const my_XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const wml_credentials = new Map();
 
@@ -32,7 +34,7 @@ application.use(bodyParser.urlencoded({ extended: true }));
 
 application.use(express.static(__dirname + "/public"));
 
-application.post('/modelintensity', function(req, res) {
+application.post('/', function(req, res) {
 
     const payload = '{"fields": ["latitude", "longitude"], "values": [[' + req.body.lat + ',' + req.body.lng + ']]}';
 
@@ -104,6 +106,26 @@ function getToken(){
     );
 }
 
+router.use(function (req,res,next) {
+    console.log("/" + req.method);
+    next();
+});
+
+router.get("/",function(req,res){
+    res.sendFile(path + "index.html");
+});
+
+router.get("/usa-wildfires",function(req,res){
+    res.sendFile(path + "usa.html");
+});
+
+router.use(function (req,res,next) {
+    console.log("/" + req.method);
+    next();
+});
+
+application.use("/",router);
+
 fs.readFile("public/index.html", 'utf8', function (err,data) {
   if (err) {
     console.log("error: " + err);
@@ -114,6 +136,18 @@ fs.readFile("public/index.html", 'utf8', function (err,data) {
   fs.writeFile("public/index.html", result, 'utf8', function (err) {
       console.log("FS Write Err: " + err);
   });
+});
+
+fs.readFile("public/usa.html", 'utf8', function (err,data) {
+    if (err) {
+        console.log("error: " + err);
+        return;
+    }
+
+    const result = data.replace("APIKEY", map_apikey);
+    fs.writeFile("public/usa.html", result, 'utf8', function (err) {
+        console.log("FS Write Err: " + err);
+    });
 });
 
 getToken();

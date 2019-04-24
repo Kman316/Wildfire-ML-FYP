@@ -19,30 +19,73 @@ $.getJSON("https://gist.githubusercontent.com/Kman316/65c39034fe09ead04647f7ec05
     console.log(geojson.features[0].geometry.coordinates);
 
     map.on('load', function () {
+        // Adding the separate data source being handled by the clustering side of things
+        map.addSource('firesagg', {
+                type: "geojson",
+                data: geojson,
+                cluster: true,
+                clusterMaxZoom: 14,
+                clusterRadius: 40
+            });
+        // Adding the clustered points as a layer to the map.
+        map.addLayer({
+            "id": "Clusters",
+            "type": "circle",
+            "source": "firesagg",
+            "filter": ["has", "point_count"],
+            "paint": {
+                "circle-color": {
+                    "property": "point_count",
+                    "type": "interval",
+                    "stops": [
+                        [0, "rgba(81, 187, 214,0.6)"],
+                        [100, "rgba(241, 240, 117,0.6)"],
+                        [750, "rgba(242, 140, 177,0.6)"],
+                    ]
+                },
+                // Coloring the clustered points based on the number aggregated together.
+                // Note: change to match heatmap colours maybe?
+                "circle-radius": {
+                    property: "point_count",
+                    type: "interval",
+                    stops: [
+                        [0, 20],
+                        [100, 30],
+                        [750, 40]
+                    ]
+                },
+            }
+        });
+        map.addLayer({
+            id: "cluster-count",
+            type: "symbol",
+            "source": "firesagg",
+            filter: ["has", "point_count"],
+            layout: {
+                "text-field": "{point_count_abbreviated}",
+                "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+                "text-size": 12
+            }
+        });
         map.loadImage('https://raw.githubusercontent.com/Kman316/Wildfire-ML-FYP/master/fire-red.png', function(error, image) {
             if (error) throw error;
             map.addImage('wildfires', image);
             map.addLayer({
-                id: "wildfires",
+                id: "unclustered-point",
                 type: "symbol",
-                source: {
-                    type: "geojson",
-                    data: geojson
-                },
+                "source": "firesagg",
+                filter: ["!", ["has", "point_count"]],
                 layout: {
-                    "icon-image": "wildfires",
-                    'icon-allow-overlap': true
+                    "icon-image": "wildfires"
                 }
             });
         });
     });
-
-
-
+    
     const popup = new mapboxgl.Popup();
 
-    map.on('click', function(e){
-        const features = map.queryRenderedFeatures(e.point, { layers: ['wildfires'] });
+    map.on('click', 'unclustered-point' ,function(e){
+        const features = map.queryRenderedFeatures(e.point, { layers: ['unclustered-point'] });
 
         if (!features.length) {
             popup.remove();
@@ -55,6 +98,22 @@ $.getJSON("https://gist.githubusercontent.com/Kman316/65c39034fe09ead04647f7ec05
             .addTo(map);
 
         map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+    });
+
+    // Causes clusters to, when clicked, zoom in.
+    map.on('click', 'Clusters', function (e) {
+        const features = map.queryRenderedFeatures(e.point, { layers: ['Clusters'] });
+
+        const feature = features[0];
+        if (features.length) {
+            map.flyTo({center: feature.geometry.coordinates, zoom: 10});
+        }
+    });
+
+// Changes mouse cursor to a pointer finger whenever a cluster or unclustered point is moused over.
+    map.on('mousemove', function (e) {
+        const features = map.queryRenderedFeatures(e.point, { layers: ['unclustered-point', 'Clusters'] });
+        map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
     });
 
 });

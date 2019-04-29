@@ -1,9 +1,16 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2F0aGFsLWtlbm5lYWxseSIsImEiOiJjanJ4bnE5MDgwa2o3NDRvY2E3aHJ5ZmQ2In0.D4WhDCGxN15O4UNat9M8lQ';
+
+const bounds = [
+    [ -172.7452398807572, 12.57828546005527, ],
+    [ -58.76160721351644, 71.61645111692806, ]
+];
+
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-98.333, 31.20],
-    zoom: 4
+    center: [-95.7129, 37.0902],
+    zoom: 4,
+    maxBounds: bounds
 });
 
 let geolocate;

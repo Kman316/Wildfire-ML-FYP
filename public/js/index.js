@@ -40,6 +40,24 @@ $.getJSON("https://gist.githubusercontent.com/Kman316/e53cab32537d3f4c8a0cf24574
                 }
             });
         });
+
+        const layers = ['Kelvin(K)','305-310', '310-315', '315-320', '320-325', '325-330', '330-335', '335-340', '340+'];
+        const colors = ['','#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026', '#800026'];
+
+        for (i = 0; i < layers.length; i++) {
+            const layer = layers[i];
+            const color = colors[i];
+            const item = document.createElement('div');
+            const key = document.createElement('span');
+            key.className = 'legend-key';
+            key.style.backgroundColor = color;
+
+            const value = document.createElement('span');
+            value.innerHTML = layer;
+            item.appendChild(key);
+            item.appendChild(value);
+            legend.appendChild(item);
+        }
     });
 
 
